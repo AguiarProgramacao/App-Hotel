@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import LoginScreen from './src/screens/LoginScreen';
-import RegisterScreen from './src/screens/RegisterScreen';
-import HotelsScreen from './src/screens/HotelsScreen';
-import BookingScreen from './src/screens/BookingScreen';
-import PaymentScreen from './src/screens/PaymentScreen';
-import ProfileScreen from './src/screens/ProfileScreen';
-import PaymentsAccept from './src/screens/PaymentAccept';
+import LoginScreen from '../screens/LoginScreen';
+import RegisterScreen from '../screens/RegisterScreen';
+import HotelsScreen from '../screens/HotelsScreen';
+import BookingScreen from '../screens/BookingScreen';
+import PaymentScreen from '../screens/PaymentScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Stack = createStackNavigator();
 
@@ -35,7 +34,6 @@ const AppNavigator = () => {
                         <Stack.Screen name="Booking" component={BookingScreen} />
                         <Stack.Screen name="Payment" component={PaymentScreen} />
                         <Stack.Screen name="Profile" component={ProfileScreen} />
-                        <Stack.Screen name='PaymentsAccept' component={PaymentsAccept} />
                     </>
                 )}
             </Stack.Navigator>
