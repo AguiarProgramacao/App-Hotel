@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import api from '../services/api';
+import Header from '../components/Header';
 
 const BookingScreen = ({ route, navigation }) => {
     const { hotel } = route.params;
@@ -10,7 +11,6 @@ const BookingScreen = ({ route, navigation }) => {
     const [showCheckInPicker, setShowCheckInPicker] = useState(false);
     const [showCheckOutPicker, setShowCheckOutPicker] = useState(false);
 
-    // Formata a data para DD/MM/AAAA
     const formatDate = (date) => {
         const day = date.getDate().toString().padStart(2, '0');
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -20,9 +20,9 @@ const BookingScreen = ({ route, navigation }) => {
 
     return (
         <View style={styles.container}>
+            <Header />
             <Text style={styles.header}>Fazendo reserva em {hotel.name}</Text>
 
-            {/* Campo Check-in */}
             <Text style={styles.label}>Check-in</Text>
             <TouchableOpacity
                 style={styles.input}
@@ -44,7 +44,6 @@ const BookingScreen = ({ route, navigation }) => {
                 />
             )}
 
-            {/* Campo Check-out */}
             <Text style={styles.label}>Check-out</Text>
             <TouchableOpacity
                 style={styles.input}
@@ -66,12 +65,10 @@ const BookingScreen = ({ route, navigation }) => {
                 />
             )}
 
-            {/* Botão de Reservar */}
             <Button
                 title="Reservar"
                 onPress={async () => {
                     try {
-                        // Converte as datas para o formato ISO antes de enviar
                         const checkInISO = checkIn.split('/').reverse().join('-');
                         const checkOutISO = checkOut.split('/').reverse().join('-');
 
@@ -98,11 +95,13 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         backgroundColor: '#f9f9f9',
+        justifyContent: "center",
     },
     header: {
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 20,
+        textAlign: "center"
     },
     label: {
         fontSize: 16,
@@ -115,6 +114,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         marginBottom: 20,
         backgroundColor: '#fff',
+        width: "100%"
     },
     inputText: {
         fontSize: 16,

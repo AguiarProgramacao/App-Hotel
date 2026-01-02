@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { api } from '../services/api';
+import Header from '../components/Header';
 
 const PaymentScreen = ({ route, navigation }) => {
     const { bookingId } = route.params;

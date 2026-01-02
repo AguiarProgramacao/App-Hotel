@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, StatusBar, Text, FlatList, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { api } from '../services/api';
+import { FontAwesome5 } from "@expo/vector-icons"
 
 const HotelsScreen = ({ navigation }) => {
     const [hotels, setHotels] = useState([]);
@@ -13,13 +14,19 @@ const HotelsScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Hotéis Disponíveis</Text>
+            <StatusBar barStyle="dark-content" backgroundColor="#F4F4F4" />
+            <View style={styles.header}>
+                <Text style={styles.title}>Hotéis Disponíveis</Text>
+                <TouchableOpacity style={styles.profileButton} onPress={() => navigation.navigate('Profile')}>
+                    <FontAwesome5 style={styles.profileButtonText} name="user" />
+                </TouchableOpacity>
+            </View>
             <FlatList
                 data={hotels}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
-                    <TouchableOpacity 
-                        style={styles.card} 
+                    <TouchableOpacity
+                        style={styles.card}
                         onPress={() => navigation.navigate('Booking', { hotel: item })}
                     >
                         {item.image && (
@@ -40,7 +47,7 @@ const HotelsScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 10,
+        padding: 15,
         backgroundColor: '#f4f4f4',
     },
     title: {
@@ -80,6 +87,36 @@ const styles = StyleSheet.create({
         color: '#e67e22',
         fontWeight: 'bold',
         marginTop: 5,
+    },
+    button: {
+        padding: 15,
+        backgroundColor: "#cecece",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 15
+    },
+    textButton: {
+        fontSize: 16,
+        fontWeight: "bold"
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 15,
+    },
+    profileButton: {
+        paddingVertical: 8,
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderRadius: 50,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    profileButtonText: {
+        color: '#000',
+        fontWeight: 'bold',
+        fontSize: 20,
     },
 });
 

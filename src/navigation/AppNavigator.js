@@ -1,39 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AuthContext } from '../context/AuthContext'; // Importar o contexto
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import HotelsScreen from '../screens/HotelsScreen';
 import BookingScreen from '../screens/BookingScreen';
 import PaymentScreen from '../screens/PaymentScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import PaymentsAccept from '../screens/PaymentAccept';
 
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    useEffect(() => {
-        AsyncStorage.getItem('token').then((token) => {
-            setIsLoggedIn(!!token);
-        });
-    }, []);
+    const { isLoggedIn } = useContext(AuthContext);
 
     return (
         <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator >
                 {!isLoggedIn ? (
                     <>
-                        <Stack.Screen name="Login" component={LoginScreen} />
-                        <Stack.Screen name="Register" component={RegisterScreen} />
+                        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+                        <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
                     </>
                 ) : (
                     <>
-                        <Stack.Screen name="Hotels" component={HotelsScreen} />
-                        <Stack.Screen name="Booking" component={BookingScreen} />
-                        <Stack.Screen name="Payment" component={PaymentScreen} />
-                        <Stack.Screen name="Profile" component={ProfileScreen} />
+                        <Stack.Screen name="Hotels" component={HotelsScreen} options={{ headerShown: false }} />
+                        <Stack.Screen name="Booking" component={BookingScreen} options={{ headerShown: false }} />
+                        <Stack.Screen name="Payment" component={PaymentScreen} options={{ headerShown: false }} />
+                        <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
+                        <Stack.Screen name="paymentAccept" component={PaymentsAccept} options={{ headerShown: false }} />
                     </>
                 )}
             </Stack.Navigator>

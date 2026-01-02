@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'http://192.168.0.107:5000/api';
+const API_URL = 'http://192.168.0.108:5000/api';
 
 export const api = axios.create({
     baseURL: API_URL,
@@ -10,7 +10,6 @@ export const api = axios.create({
     }
 });
 
-// Middleware para adicionar o token JWT automaticamente a todas as requisições
 api.interceptors.request.use(async (config) => {
     const token = await AsyncStorage.getItem('token');
     if (token) {
@@ -21,7 +20,6 @@ api.interceptors.request.use(async (config) => {
     return Promise.reject(error);
 });
 
-// Função para remover o token
 export const setAuthToken = (token) => {
     if (token) {
         api.defaults.headers.Authorization = `Bearer ${token}`;
@@ -30,11 +28,10 @@ export const setAuthToken = (token) => {
     }
 };
 
-// Função para limpar o token do AsyncStorage e da API
 export const logout = async () => {
     try {
-        await AsyncStorage.removeItem('token'); // Remove o token do AsyncStorage
-        setAuthToken(null); // Remove o token da configuração da API
+        await AsyncStorage.removeItem('token');
+        setAuthToken(null);
     } catch (error) {
         console.error('Erro ao remover token', error);
     }

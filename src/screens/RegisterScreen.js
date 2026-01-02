@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import { api } from '../services/api';
 
 const RegisterScreen = ({ navigation }) => {
@@ -24,18 +24,59 @@ const RegisterScreen = ({ navigation }) => {
         }
     };
 
-
     return (
-        <View>
-            <Text>Cadastro</Text>
-            <TextInput placeholder="Nome" value={name} onChangeText={setName} />
-            <TextInput placeholder="E-mail" value={email} onChangeText={setEmail} />
-            <TextInput placeholder="Senha" secureTextEntry value={password} onChangeText={setPassword} />
-            <TouchableOpacity onPress={handleRegister}>
-                <Text>Cadastrar</Text>
+        <View style={styles.container}>
+            <Text style={styles.title}>Cadastro</Text>
+            <TextInput style={styles.input} placeholder="Nome" value={name} onChangeText={setName} />
+            <TextInput style={styles.input} placeholder="E-mail" value={email} onChangeText={setEmail} />
+            <TextInput style={styles.input} placeholder="Senha" secureTextEntry value={password} onChangeText={setPassword} />
+            <TouchableOpacity style={styles.button} onPress={handleRegister}>
+                <Text style={styles.textButton}>Cadastrar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Text style={styles.textReturn}>Retornar</Text>
             </TouchableOpacity>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 15,
+        backgroundColor: "#FFF"
+    },
+    input: {
+        width: "100%",
+        borderWidth: 1,
+        marginBottom: 15,
+        borderRadius: 6,
+        borderColor: "#B4BEC9"
+    },
+    button: {
+        padding: 12,
+        marginBottom: 15,
+        backgroundColor: "#002333",
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 6
+    },
+    textButton: {
+        color: "#FFF",
+        fontSize: 16,
+        fontWeight: "bold"
+    },
+    title: {
+        fontSize: 32,
+        fontWeight: "bold",
+        marginBottom: 20
+    },
+    textReturn: {
+        textDecorationLine: "underline"
+    }
+});
 
 export default RegisterScreen;
